@@ -70,3 +70,28 @@ Route::get('/pesanKosPemilik', function () {
 Route::get('/bookingPemilik', function () {
     return view('/Pemilik/bookingPemilik');
 });
+
+Route::get('/berandaAdmin', function () {
+    return view('/Admin/berandaAdmin');
+});
+
+Route::get('/kostAdmin', function () {
+    return view('/Admin/kostAdmin');
+});
+Route::get('/editKostAdmin', function () {
+    return view('/Admin/editKostAdmin');
+});
+Route::get('/tambahKostAdmin', function () {
+    return view('/Admin/tambahKostAdmin');
+});
+
+Route::get('/pemilikKostAdmin', function () {
+    return view('/Admin/pemilikKostAdmin');
+});
+Route::get('/editPemilikKostAdmin', function () {
+    return view('/Admin/editPemilikKostAdmin');
+});
+Route::get('/tambahPemilikKostAdmin', function () {
+    return view('/Admin/tambahPemilikKostAdmin');
+});
+
