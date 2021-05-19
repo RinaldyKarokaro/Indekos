@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/w3.css">
   @yield('title')
   
   <!-- FAVICON -->
@@ -168,7 +169,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<nav class="navbar navbar-expand-lg navbar-light navigation">
-					<a class="navbar-brand" href="/">
+					<a class="navbar-brand" href="index.html">
 						<img src="/img/account.png" style="width:7%;height:10%;" alt="">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -178,13 +179,13 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ml-auto main-nav ">
 							<li class="nav-item" >
-								<a class="nav-link" href="/">Beranda</a>
+								<a class="nav-link" href="#">Beranda</a>
 							</li>
 							<li class="nav-item ">
 								<a class="nav-link" href="#">Pesan</a>
 							</li>
                             <li class="nav-item ">
-								<a class="nav-link" href="/historypengunjung">History</a>
+								<a class="nav-link" href="#">History</a>
 							</li>
                             <li class="nav-item ">
 								<a class="nav-link" href="#">Profil</a>
@@ -204,7 +205,7 @@
 =            Hero Area            =
 ================================-->
 
-<section class="hero-area bg-1 text-center overly">
+<section class="hero-area bg-1 text-center overly" style="background:#007BFF 56%;">
 	<!-- Container Start -->
 	<div class="container">
 		<div class="row">

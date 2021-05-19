@@ -25,6 +25,8 @@
   <link href="plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
   <!-- CUSTOM CSS -->
   <link href="css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/fullcalendar.min.css" />
+  
 
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -43,7 +45,6 @@
             footer, p, li{
                 color:white;
             }
-
             footer a {
                 color: #fff;
                 font-size: 14px;
@@ -176,21 +177,21 @@
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav ml-auto main-nav ">
-							<li class="nav-item" >
-								<a class="nav-link" href="/">Beranda</a>
+						<ul class="navbar-nav ml-auto main-nav "id="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="/" style="color:white;"><b>Beranda</b></a>
 							</li>
 							<li class="nav-item ">
-								<a class="nav-link" href="#">Booking</a>
+								<a class="nav-link" href="#" style="color:white;">Booking</a>
 							</li>
                             <li class="nav-item ">
-								<a class="nav-link" href="/historypengunjung">History</a>
+								<a class="nav-link" href="/historypengunjung" style="color:white;">History</a>
 							</li>
                             <li class="nav-item ">
-								<a class="nav-link" href="#">Profil</a>
+								<a class="nav-link" href="#" style="color:white;">Profil</a>
 							</li>
                             <li class="nav-item ">
-								<a class="nav-link" href="#">Keluar</a>
+								<a class="nav-link" href="#" style="color:white;">Keluar</a>
 							</li>
 						</ul>
 					</div>
@@ -204,7 +205,7 @@
 =            Hero Area            =
 ================================-->
 
-<section class="hero-area bg-1 text-center overly">
+<section class="hero-area bg-1 text-center overly" style="background:#007BFF;">
 	<!-- Container Start -->
 	<div class="container">
 		<div class="row">
@@ -346,9 +347,91 @@
 <script src="plugins/google-map/gmap.js"></script>
 <script src="js/script.js"></script>
 
+<script src="js/jquery.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+<script>
+$(document).ready(function () {
+    var calendar = $('#calendar').fullCalendar({
+        editable: true,
+        events: "fetch-event.php",
+        displayEventTime: false,
+        eventRender: function (event, element, view) {
+            if (event.allDay === 'true') {
+                event.allDay = true;
+            } else {
+                event.allDay = false;
+            }
+        },
+        selectable: true,
+        selectHelper: true,
+        select: function (start, end, allDay) {
+            var title = prompt('Event Title:');
+
+            if (title) {
+                var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+
+                $.ajax({
+                    url: 'add-event.php',
+                    data: 'title=' + title + '&start=' + start + '&end=' + end,
+                    type: "POST",
+                    success: function (data) {
+                        displayMessage("Added Successfully");
+                    }
+                });
+                calendar.fullCalendar('renderEvent',
+                        {
+                            title: title,
+                            start: start,
+                            end: end,
+                            allDay: allDay
+                        },
+                true
+                        );
+            }
+            calendar.fullCalendar('unselect');
+        },
+        
+        editable: true,
+        eventDrop: function (event, delta) {
+                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+                    $.ajax({
+                        url: 'edit-event.php',
+                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
+                        type: "POST",
+                        success: function (response) {
+                            displayMessage("Updated Successfully");
+                        }
+                    });
+                },
+        eventClick: function (event) {
+            var deleteMsg = confirm("Do you really want to delete?");
+            if (deleteMsg) {
+                $.ajax({
+                    type: "POST",
+                    url: "delete-event.php",
+                    data: "&id=" + event.id,
+                    success: function (response) {
+                        if(parseInt(response) > 0) {
+                            $('#calendar').fullCalendar('removeEvents', event.id);
+                            displayMessage("Deleted Successfully");
+                        }
+                    }
+                });
+            }
+        }
+
+    });
+});
+
+function displayMessage(message) {
+	    $(".response").html("<div class='success'>"+message+"</div>");
+    setInterval(function() { $(".success").fadeOut(); }, 1000);
+}
+</script>
+
 </body>
 
 </html>
-
-
-

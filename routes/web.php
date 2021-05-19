@@ -21,6 +21,18 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+Route::get('/profil', function () {
+    return view('/Pengunjung/profil');
+});
+
+Route::get('/grafikpeminatkost', function () {
+    return view('/Pengunjung/grafikpeminatkost');
+});
+Route::get('/fasilitas', function () {
+    return view('/Pengunjung/fasilitas');
+});
+
+
 Route::get('/pesan', function () {
     return view('/Pengunjung/pesan');
 });
@@ -69,6 +81,20 @@ Route::get('/pesanKosPemilik', function () {
 
 Route::get('/bookingPemilik', function () {
     return view('/Pemilik/bookingPemilik');
+});
+
+Route::get('/beranda', function () {
+    return view('/Pemilik/beranda');
+});
+
+Route::get('/bookingLanjutan', function () {
+    return view('/Pemilik/bookingLanjutan');
+});
+Route::get('/profilPemilik', function () {
+    return view('/Pemilik/profilPemilik');
+});
+Route::get('/penggunaPemilik', function () {
+    return view('/Pemilik/penggunaPemilik');
 });
 
 Route::get('/berandaAdmin', function () {
